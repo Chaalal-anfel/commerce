@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>الصفحة الرئيسية</title>
+    <meta name="viewport" content="width=device-width,
+      initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '187610694306142');
+        fbq('track', 'PageView');
+        fbq('track', 'Lead');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=187610694306142&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <h1 class="form-title">للطلب املا هذه الاستمارة</h1>
+        <div class="prix">
+            <p> <p style="text-decoration: line-through;" >3800</p>
+            <span class="value" >2900</span>
+            <span class="currency">&nbsp;د.ج</span></p>
+        </div>
+        <form th:action="@{/arvea_creme1}" method="post" th:object="${commande}" name="formName">
+            <div class="main-user-info">
+                <div class="user-input-box">
+                    <input th:field="*{name}"
+                           id="name"
+                           required autofocus="autofocus" placeholder="الرجاء ادخال الاسم كاملا" />
+                </div>
+                <div class="user-input-box">
+                    <input th:field="*{numero}"
+                           type="text"
+                           id="numero"
+                           required autofocus="autofocus" placeholder="الرجاء ادخال رقم الهاتف"/>
+                </div>
+                <div class="user-input-box">
+                    <select th:field="*{wilaya} " id="wilaya"  name="wilaya" required autofocus   >
+                        <option th:value="1"> أدرار </option>
+                        <option th:value="2"> الشلف </option>
+                        <option th:value="3"> الاغواط </option>
+                        <option th:value="4"> أم البواقي </option>
+                        <option th:value="5"> باتنة </option>
+                        <option th:value="6"> بجاية </option>
+                        <option th:value="7"> بسكرة </option>
+                        <option th:value="8"> بشار </option>
+                        <option th:value="9"> البليدة </option>
+                        <option th:value="10"> البويرة </option>
+                        <option th:value="11"> تمنراست </option>
+                        <option th:value="12"> تبسة </option>
+                        <option th:value="13"> تلمسان </option>
+                        <option th:value="14"> تيارت </option>
+                        <option th:value="15"> تيزي وزو </option>
+                        <option th:value="16"> الجزائر العاصمة </option>
+                        <option th:value="17"> الجلفة </option>
+                        <option th:value="18"> جيجل </option>
+                        <option th:value="19"> سطيف </option>
+                        <option th:value="20"> سعيدة </option>
+                        <option th:value="21"> سكيكدة </option>
+                        <option th:value="22"> سيدي بلعباس </option>
+                        <option th:value="23"> عنابة </option>
+                        <option th:value="24"> قالمة </option>
+                        <option th:value="25"> قسنطينة </option>
+                        <option th:value="26"> المدية </option>
+                        <option th:value="27"> مستغانم </option>
+                        <option th:value="28"> المسيلة </option>
+                        <option th:value="29"> معسكر </option>
+                        <option th:value="30"> ورقلة </option>
+                        <option th:value="31"> وهران </option>
+                        <option th:value="32"> البيض </option>
+                        <option th:value="33"> اليزي </option>
+                        <option th:value="34"> برج بةعريريج </option>
+                        <option th:value="35"> بومرداس </option>
+                        <option th:value="36"> الطارف </option>
+                        <option th:value="37"> تندوف </option>
+                        <option th:value="38"> تيسمسيلت </option>
+                        <option th:value="39"> الوادي </option>
+                        <option th:value="40"> خنشلة </option>
+                        <option th:value="41"> سوق أهراس </option>
+                        <option th:value="42"> تيبازة </option>
+                        <option th:value="43"> ميلة </option>
+                        <option th:value="44"> عين الدفلى </option>
+                        <option th:value="45"> النعامة </option>
+                        <option th:value="46"> عين تموشنت </option>
+                        <option th:value="47"> غرداية </option>
+                        <option th:value="48"> غيليزان </option>
+                    </select>
+                </div>
+                <div class="user-input-box">
+
+                    <input th:field="*{commune}"
+                           type="text"
+                           id="commune"
+                           required autofocus="autofocus" placeholder="الرجاء ادخال البلدية "/>
+
+                </div>
+                <div class="livraison-gratuit" style="text-align: center;" id="errorMessage"></div>
+
+            </div>
+            <div class="livraison-gratuit" style="text-align: center;"> التوصيل مجاني</div>
+
+            <div class="form-submit-btn">
+                <input type="submit" value="اشتري الآن">
+            </div>
+        </form>
+    </div>
+    <br>
+
+    <div class="Responsive" style="font-family: 'Thabit', serif; font-size:20px">
+        <div class="fr-view" >
+            <p class="vert"><span >الكريم المعجزة للوقاية التامة من العوامل الخارجية و الجفاف الكريم المعجزة للوقاية التامة من العوامل الخارجية و الجفاف</span></p>
+        </div>
+        <div class="fr-view">
+            <p class="rouge">المحافظة على البشرة و تأخير التجاعيد </p>
+        </div>
+        <div class="fr-view" >
+            <p class="vert"><span>طبيعي %100</span></p>
+        </div>
+        <div class="fr-view">
+            <p class="rouge" id="rouge"> &nbsp;أصلي من ARVEA</p>
+        </div>
+        <p><img class="img-fluid" src="images/1.png" alt=""></p>
+        <p><img class="img-fluid" src="images/2.png" alt=""></p>
+        <p><img class="img-fluid" src="images/3.png" alt=""></p>
+
+    </div>
+
+    <div class="form-submit-btn">
+        <input type="submit" value="اطلب الآن">
+    </div>
+
+    <div class="Responsive" style="font-family: 'Thabit', serif; font-size:20px">
+
+
+        <p class="rouge" id="rouge-gras" > كريم Arvea miracle&nbsp; </p>
+
+
+        <p class="big" id="black_text"><span>كريم خفيف لبشرة رطبة ونضرة مع امتصاص يغذي ويرطب البشرة والوجه والجسم. مركز ترطيب حقيقي غني بالصبار وزيت الأرغان وزبدة الشيا وزيت بذور العنب وبروفيتامين B5 <br>والبابونج والآذريون.هذه التركيبة الاستثنائية تمنح البشرة راحة مطلقة وترطيبًا دقيقًا يدوم 24 ساعة.
+
+                مع قوام كريمي خفيف ، يمتص الكريم المعجزة بسرعة ويمنح البشرة النعومة والترطيب ، وهو مصمم للجسم ويمكن استخدامه ككريم لليدين والقدمين ، كريم المعجزة مناسب للرجال والنساء.<br>
+
+
+                كريم Arvea miracle هو الحل المرطب الذي يلبي احتياجات بشرة عائلتك بأكملها ، ما عليك سوى القليل من اللمسة.
+
+                لترطيب وتغذية اليدين والوجه والجسم
+
+
+                زيت الأرغان ، زبدة الشيا ، الصبار
+                <br>
+                سريع الامتصاص
+                <br>
+                يحمي من الجفاف
+                <br>
+                ناعمة وغنية</span></p>
+
+        <div class="special"><p>لا يحتوي هذا المنتج على أي مواد كيميائية <br>
+            دربة بدربة</p></div>
+        <div class="special" style="text-align: center;"><p >هذا العرض محدود </p></div>
+
+
+        <div class="acheter" style="font-family: 'Droid Arabic Naskh', serif; font-size:20px">
+            <p><span>من أين أشتري المنتج ؟</span></p>
+            <p>
+                للحصول على منتجاتنا بطريقة سريعة يكفي تسجيل طلبكم عبر إدخال معلوماتكم و الضغط على زر "اشتري الأن"
+            </p>
+            <div class="form-submit-btn">
+                <input type="submit" value="اشتري الآن">
+            </div>
+            <p><span >الدفع عند الاستلام</span></p>
+            <p>
+                عد تأكيد طلبيتكم سيتم شحن المنتج مباشرة, يتم الدفع نقدا مباشرة عند إستلام المنتج
+            </p>
+
+        </div>
+
+
+        <div id="countdown"   ></div>
+        <div class="livraison-gratuit"> التوصيل مجاني</div>
+    </div>
+
+
+    <div class="form-submit-btn">
+        <input type="submit" value="اطلب الآن و لن تندم">
+    </div>
+
+
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+<script>
+    function startCountdown(hours) {
+        // Calculate the total seconds
+        var totalSeconds = hours * 3600;
+
+        // Get the current time
+        var startTime = new Date().getTime();
+
+        // Update the countdown every second
+        var countdown = setInterval(function() {
+            // Get the current time
+            var currentTime = new Date().getTime();
+
+            // Calculate the elapsed time in seconds
+            var elapsedTime = Math.floor((currentTime - startTime) / 1000);
+
+            // Calculate the remaining time in seconds
+            var remainingSeconds = totalSeconds - elapsedTime;
+
+            // Check if the countdown is finished
+            if (remainingSeconds <= 0) {
+                clearInterval(countdown);
+                document.getElementById("countdown").textContent = "Countdown finished!";
+                return;
+            }
+
+            // Calculate the hours, minutes, and seconds
+            var hours = Math.floor(remainingSeconds / 3600);
+            var minutes = Math.floor((remainingSeconds % 3600) / 60);
+            var seconds = remainingSeconds % 60;
+
+            // Format the countdown display
+            var countdownDisplay = hours.toString().padStart(2, "0") + ":" +
+                minutes.toString().padStart(2, "0") + ":" +
+                seconds.toString().padStart(2, "0");
+
+            // Display the countdown
+            document.getElementById("countdown").textContent = countdownDisplay;
+        }, 1000); // Update every second (1000 milliseconds)
+    }
+
+    // Start the countdown with 2 hours
+    startCountdown(1);
+
+
+    const formElement = document.querySelector('form[name="formName"]');
+    const errorMessages = {}; // Objet pour stocker les messages d'erreur spécifiques
+
+    function refreshPage() {
+        window.location.reload(true);
+    }
+    formElement.addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêche la soumission du formulaire par défaut
+
+        const fullNameInput = document.getElementById('name');
+        const usernameInput = document.getElementById('commune');
+        const emailInput = document.getElementById('wilaya');
+        const phoneNumberInput = document.getElementById('numero');
+
+        // Expression régulière pour le champ FullName (الاسم الكامل) - Lettres arabes et espaces seulement
+        const fullNameRegex =/^[A-Za-z\u0600-\u06FF\s]+$/;
+        if (!fullNameRegex.test(fullNameInput.value)) {
+            errorMessages.name = '  الاسم لا يحتوي على رموز خاصة';
+        } else {
+            delete errorMessages.name; // Supprimer le message d'erreur s'il est valide
+        }
+
+        // Expression régulière pour le champ Username (رقم الهاتف) - 9 chiffres seulement
+        const usernameRegex = /^[A-Za-z\u0600-\u06FF\s]+$/;
+        if (!usernameRegex.test(usernameInput.value)) {
+            errorMessages.commune = ' البلدية لا يحتوي على رموز خاصة';
+        } else {
+            delete errorMessages.commune; // Supprimer le message d'erreur s'il est valide
+        }
+
+
+
+        // Expression régulière pour le champ PhoneNumber (البلدية) - Chiffres seulement
+        const phoneNumberRegex = /^\d{10}$/ ;
+        if (!phoneNumberRegex.test(phoneNumberInput.value)) {
+            errorMessages.numero= ' رقم الهاتف غير صحيح';
+        } else {
+            delete errorMessages.numero; // Supprimer le message d'erreur s'il est valide
+        }
+
+
+        // Vérifiez s'il y a des champs invalides
+        const urlParams = new URLSearchParams(window.location.search);
+        const isSuccess = urlParams.get('success');
+        if (Object.keys(errorMessages).length === 0) {
+            // Tous les champs sont valides, vous pouvez soumettre le formulaire
+            console.log('Tous les champs sont valides.');
+            formElement.submit(); // Soumettre le formulaire
+            /*if (isSuccess === 'true') {
+                console.log('Le bloc de code pour afficher le message de succès est exécuté.');
+                Swal.fire({
+                        icon: 'success',
+                        title: 'شكرا',
+                        text: 'تم إرسال طلبيتكم بنجاح ',
+
+                });
+            }*/
+
+        } else {
+            // Il y a des champs invalides, affichez le message d'erreur dans la page
+            let errorMessage = 'راحع معلوماتك الشخصية من فضلك :';
+            for (const fieldName in errorMessages) {
+                errorMessage += '\n - ' + errorMessages[fieldName];
+            }
+            const errorMessageElement = document.getElementById('errorMessage');
+            errorMessageElement.textContent = errorMessage;
+        }
+    });
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

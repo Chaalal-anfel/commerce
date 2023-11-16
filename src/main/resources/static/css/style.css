@@ -1,0 +1,330 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    display: flex;
+    /* height: 100vh; */
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    overflow-x: hidden;
+}
+.container{
+    width: 100%;
+    max-width: 650px;
+    background: #F8E71CFF;
+    overflow-x: hidden;
+    border-radius: 10px;
+    box-shadow: inset -2px 2px 2px white;
+}
+
+.main{
+    width: 100%;
+    max-width: 650px;
+    background: transparent;
+    overflow-x: hidden;
+    border-radius: 10px;
+    box-shadow: inset -2px 2px 2px white;
+}
+
+.form-title{
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    /* padding-bottom: 6px; */
+    color: black;
+    border-bottom: solid 1px white;
+}
+
+.main-user-info{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.user-input-box:nth-child(2n){
+    justify-content: end;
+}
+
+.user-input-box{
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    padding-bottom: 15px;
+}
+
+
+.user-input-box input{
+    height: 40px;
+    width: 95%;
+    border-radius: 7px;
+    outline: none;
+    border: 1px solid grey;
+    padding: 0 10px;
+}
+
+.user-input-box select{
+    height: 40px;
+    width: 95%;
+    border-radius: 7px;
+    outline: none;
+    border: 1px solid grey;
+    padding: 0 10px;
+}
+
+
+
+.form-submit-btn input{
+    cursor: pointer;
+}
+
+.form-submit-btn{
+    margin-top: 40px;
+}
+
+.form-submit-btn input{
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 20px;
+    padding: 10px;
+    border:none;
+    border-radius: 3px;
+    color: rgb(209, 209, 209);
+    background: red;
+}
+
+.form-submit-btn input:hover{
+    background: red;
+    color: rgb(255, 255, 255);
+}
+.prix{
+    text-align: center;
+    position: relative;
+}
+.prix span{
+    font-size: 4rem;
+    color: #26292E;
+    font-weight: bold;
+    line-height: 150%;
+    letter-spacing: 0px;
+    text-shadow: 0px 0px 0px #000000;
+}
+@media(max-width: 600px){
+    .main{
+        min-width: 100px;
+        overflow-x: hidden;
+    }
+
+    .user-input-box{
+        margin-bottom: 12px;
+        width: 100%;
+    }
+
+    .user-input-box:nth-child(2n){
+        justify-content: space-between;
+    }
+
+    .gender-category{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .main-user-info{
+        max-height: 380px;
+        overflow: auto;
+    }
+
+    .main-user-info::-webkit-scrollbar{
+        width: 0;
+    }
+    .responsive{
+        min-width: 100px;
+        padding: 0px 20px;
+        background-color: beige;
+
+    }
+    .responsive img{
+        width: 100%;
+        height: auto;
+    }
+    #black-text{
+        justify-content: center;
+        margin: 5px 5px;
+        color: black;
+        font-size: larger;
+    }
+    .responsive{
+        justify-content: center;
+        width: 100%;
+        max-width: 100%;
+        padding: 28px;
+        margin: 0 5px;
+        border-radius: 10px;
+        box-shadow: inset -2px 2px 2px white;
+    }
+
+    .img-fluid{
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    .fr-view{
+        display: block;
+        justify-content: center;
+        text-align: center;
+    }
+    .vert{
+        font-style: italic;
+        color: forestgreen;
+        margin: 30px 10px ;
+        font-size: larger;
+        font-weight: bold;
+    }
+    .rouge{
+        font-style: italic;
+        align-items: center;
+        justify-items: center;
+        color: red;
+        margin: 30px 10px ;
+        font-size: larger;
+    }
+    #rouge-gras{
+        font-weight: bold;
+        text-align: center;
+    }
+    #black-text{
+        justify-content: center;
+        padding: 20px 20px;
+        text-align: right;
+        flex-direction: column;
+        color: black;
+        font-size: xx-large;
+    }
+
+    .big{
+        line-height: 3 ;
+    }
+}
+.responsive{
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 28px;
+    margin: 0 5px;
+    border-radius: 10px;
+    box-shadow: inset -2px 2px 2px white;
+}
+
+.img-fluid{
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+.fr-view{
+    display: block;
+    justify-content: center;
+    text-align: center;
+}
+.vert{
+    font-style: italic;
+    color: forestgreen;
+    margin: 30px 10px ;
+    font-size: larger;
+    font-weight: bold;
+}
+.rouge{
+    font-style: italic;
+    align-items: center;
+    justify-items: center;
+    color: red;
+    margin: 30px 10px ;
+    font-size: larger;
+}
+#rouge-gras{
+    font-weight: bold;
+    text-align: center;
+}
+#black-text{
+    justify-content: center;
+    padding: 20px 20px;
+    text-align: right;
+    flex-direction: column;
+    color: black;
+    font-size: xx-large;
+}
+
+.big{
+    line-height: 3 ;
+}
+#countdown{
+    color: green;
+    border: #000000;
+    text-align: center;
+    font-size: 90px;
+    border-style: inset ;
+    border-style: solid 4px;
+    border-left: hidden;
+    border-right: hidden;
+    border-radius: 5px ;
+    margin: 20px 40px ;
+}
+
+.special{
+    background-color: #F8E71CFF;
+}
+.special p{
+    font-family: Arial, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 5px;
+    line-height: 3rem;
+    letter-spacing: 2px;
+    align-items: center;
+    text-align: center;
+    padding: 10px 10px;
+
+}
+.livraison-gratuit{
+    text-align: center;
+    font-weight: bolder;
+    font-style: italic;
+    font-size: xx-large;
+}
+.acheter{
+    margin: 20px 20px;
+    padding: 10px 10px;
+    align-items: center;
+    text-align: center;
+    font-weight: bolder;
+    font-style: italic;
+    font-size: xx-large;
+
+}
+.acheter p{
+    text-align: center;
+    margin: 10px 20px;
+}
+
+.acheter p span{
+    margin: 10px 30px;
+    align-items: center;
+    background: linear-gradient(120deg,#ff1e1e 0%, #106637 100%);
+    text-align: center;
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#errorMessage{
+    margin: auto;
+    align-content: center;
+    text-align: center;
+    font-style: italic;
+    font-size: large;
+}
