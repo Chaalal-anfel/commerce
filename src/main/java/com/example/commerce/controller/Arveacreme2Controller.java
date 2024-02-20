@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @ComponentScan
-@RequestMapping("/arvea_creme2")
+@RequestMapping("/admin/arvea_creme2")
 public class Arveacreme2Controller {
     private CommandeService commandeService;
 
@@ -43,7 +43,7 @@ public class Arveacreme2Controller {
     @PostMapping
     public String registrationCommandeAccount(@ModelAttribute("commande") CommandeRegistrationDto commandeRegistrationDto ){
 
-        commandeService.save(commandeRegistrationDto);
+        commandeService.save(commandeRegistrationDto, commandeRegistrationDto.getRefLandP(),"huille romatisme");
         return "pageProduit";
     }
 }

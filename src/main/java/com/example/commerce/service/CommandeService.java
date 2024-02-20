@@ -7,11 +7,21 @@ import java.util.List;
 
 public interface  CommandeService {
 
-    Commande save(CommandeRegistrationDto commandeRegistrationDto);
+    Commande save(CommandeRegistrationDto commandeRegistrationDto, String refLandP,String situation);
+    Commande saveA(CommandeRegistrationDto commandeRegistrationDto);
+
 
     List<Commande> lire();
+
+    List<Commande> lireAll();
+    List<Commande> lireConfirmed();
+
+    Commande getById(Long id);
 
     Commande modifier(Long id, Commande commande);
 
     String supprimer(Long id);
-}
+
+    void confirmOrder(Long orderId);
+    void deleteOrder(Long orderId);
+    long calculerNombreTotalCommandes();}

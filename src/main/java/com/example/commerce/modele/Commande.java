@@ -9,6 +9,7 @@ import java.util.Date;
 @Table(name= "COMMANDE")
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class Commande {
@@ -34,7 +35,9 @@ public class Commande {
     @JoinColumn(name = "idLand",referencedColumnName = "idLandP")
     */
 
-    private long refLandPage;
+    private String refLandPage;
+    private String status;
+    private String nomProduit;
 
 
 

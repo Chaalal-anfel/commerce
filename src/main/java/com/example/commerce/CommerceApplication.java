@@ -2,10 +2,15 @@ package com.example.commerce;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-public class CommerceApplication {
+public class CommerceApplication {	public static void main(String[] args) {SpringApplication.run(CommerceApplication.class, args); }
 
-	public static void main(String[] args) {SpringApplication.run(CommerceApplication.class, args); }
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 }

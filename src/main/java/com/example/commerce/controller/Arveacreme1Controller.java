@@ -42,8 +42,9 @@ public class Arveacreme1Controller {
     @PostMapping
     public String registrationCommandeAccount(@ModelAttribute("commande") CommandeRegistrationDto commandeRegistrationDto ){
 
-        commandeService.save(commandeRegistrationDto);
+        commandeService.save(commandeRegistrationDto, commandeRegistrationDto.getRefLandP(),"huille romatisme");
         return "pageProduit";
     }
+
 }
 

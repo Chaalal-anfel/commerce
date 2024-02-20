@@ -3,43 +3,53 @@ package com.example.commerce.controller;
 import com.example.commerce.modele.Commande;
 import com.example.commerce.modele.StatisticsModel;
 import com.example.commerce.service.CommandeService;
+import com.example.commerce.web.dto.CommandeRegistrationDto;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Controller
 @ComponentScan
-@RequestMapping
-public class page_officiel {
+@RequestMapping("/AntiVarice")
+public class AntiVariceController {
 
+    private CommandeService commandeService;
 
-    private final CommandeService commandeService;
-
-    public page_officiel(CommandeService commandeService) {
+    public AntiVariceController(CommandeService commandeService) {
         super();
         this.commandeService = commandeService;
     }
-
-    @GetMapping
-    public String showRegistrationFormhome(){
-        return "dashboard" ;
+    @ModelAttribute("commande")
+    public CommandeRegistrationDto commandeRegistrationDto(){
+        return new CommandeRegistrationDto();
     }
 
-    @GetMapping("/huilleHouloul/pages/page/success")
-    public String showRegistrationForm(){
-        return "huille/pageProduit" ;
+    @GetMapping("/pages/{refLandPA}")
+    public String showRegistrationForm(@PathVariable String refLandPA, Model model) {
+        model.addAttribute("refLandPA", refLandPA);
+        return "Anti/AntiVarice";  // Assurez-vous que le nom du répertoire est correct ici
     }
-    @GetMapping("/AntiVarice/pages/page/success")
-    public String showRegistrationFormA(){
-        return "Anti/AntiVariceSucces" ;
+    @PostMapping("/pages/{refLandPA}")
+    public String handlePostRequest(@PathVariable String refLandPA, @ModelAttribute("commande") CommandeRegistrationDto commandeRegistrationDto) {
+        // Traitez ici la logique de gestion de la requête POST
+        System.out.println(commandeRegistrationDto.toString());
+        commandeService.save(commandeRegistrationDto, commandeRegistrationDto.getRefLandPA(),"huille AntiVarice");
+
+        return "redirect:/AntiVarice/pages/page/success";
     }
+
+
+
+
+
+
+
 
     @GetMapping("/commandes")
     public String showOrders(Model model) {
@@ -71,14 +81,14 @@ public class page_officiel {
     public String confirmOrder(@PathVariable Long orderId) {
 
         commandeService.confirmOrder(orderId);
-        return "redirect:/commandes"; // Redirect back to the orders page
+        return "redirect:/AntiVarice/commandes"; // Redirect back to the orders page
     }
 
 
     @GetMapping("/deleteOrder/{orderId}")
     public String deleteOrder(@PathVariable Long orderId) {
         commandeService.supprimer(orderId); // Implement this method in your service
-        return "redirect:/commandes"; // Redirect back to the orders page
+        return "redirect:/AntiVarice/commandes"; // Redirect back to the orders page
     }
     @GetMapping("/statistics")
     public String showStatistics(Model model) {
@@ -105,4 +115,14 @@ public class page_officiel {
     public String showParametreSelectionPage() {
         return "choixParametre";
     }
+
+    @PostMapping("/generate")
+    public String generateURL(@RequestParam String refLandPA) {
+        // Traitement des paramètres et génération de l'URL en fonction du choix du client
+        // Vous pouvez utiliser refLandP comme vous le souhaitez
+
+        // Exemple : Redirection vers la page dynamique avec le paramètre
+        return "redirect:/AntiVarice/pages/page?refLandPA=" + refLandPA;
+    }
+
 }

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html dir="rtl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Cairo' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>الصفحة الرئيسية</title>
+  <meta name="viewport" content="width=device-width,
+      initial-scale=1.0"/>
+  <link rel="stylesheet" th:href="@{/css/style4.css}" />
+
+</head>
+<body>
+
+<div class="main">
+  <div class="container">
+    <h1 class="fr-view"> <span STYLE="background: white; font-size: larger;">علبتين بثمن علبة واحدة</span></h1>
+    <div class="prix">
+      <p>
+        <span class="value" STYLE="color: white" >2900</span>
+        <span class="currency" style="font-size: medium;color: white">&nbsp;د.ج</span></p>
+    </div>
+    <form th:action="@{'/AntiVarice/pages/' + ${refLandPA}}" method="post" th:object="${commande}" name="formName">
+      <div class="main-user-info">
+
+        <div class="user-input-box">
+          <input th:field="*{name}" type="text" id="name" name="name" required autofocus="autofocus" placeholder="الرجاء ادخال الاسم كاملا" />
+        </div>
+        <div class="user-input-box">
+          <input th:field="*{numero}" type="text" id="numero" name="numero" required autofocus="autofocus" placeholder="الرجاء ادخال رقم الهاتف"/>
+        </div>
+        <div class="user-input-box">
+          <input th:field="*{wilaya}" type="text" id="wilaya" name="wilaya" required autofocus="autofocus" placeholder="الرجاء ادخال الولاية"/>
+        </div>
+        <div class="user-input-box">
+          <input th:field="*{commune}" type="text" id="commune" name="commune" required autofocus="autofocus" placeholder="الرجاء ادخال البلدية"/>
+        </div>
+        <div>
+          <input th:field="*{refLandPA}" type="hidden" id="refLandPA" name="refLandPA" th:value="${refLandPA}">
+        </div>
+
+        <div  style="text-align: center; align-items: center;" id="errorMessage"></div>
+
+      </div>
+      <div class="form-submit-btn">
+        <input  type="submit" value="اشتري الآن">
+      </div>
+      <div class="livraison-gratuit" style="text-align: center;color: white; font-size: xx-large"> للطلب إملأ هذه الاستمارة </div>
+    </form>
+  </div>
+  <div class="Responsive">
+    <img class="img-fluid" src="/images/images-antiVarice/1.png">
+    <img class="img-fluid" src="/images/images-antiVarice/2.png">
+    <img class="img-fluid" src="/images/images-antiVarice/3.png">
+    <img class="img-fluid" src="/images/images-antiVarice/4.png">
+    <img class="img-fluid" src="/images/images-antiVarice/5.png">
+
+  </div>
+  <div class="livraison">
+    🚚🚚🚚
+  </div>
+  <DIv style="display: flex; justify-content: center; padding-top: 3px;">
+    <P style="border-top: solid 5px black; width: 30%; ;"></P>
+  </DIv>
+  <div class="demand-btn">
+    <button class="button-dmd" id="orderButton1"> <p style="color:rgba(255, 255, 255); font-size: 120%;">اطلب الآن و لن تندم أبدا</p> <p class="fa fa-shopping-cart" style="display: flex; color: white; font-size: 150%;  margin-right: 20px;"></p></button>
+  </div>
+  <DIv style="display: flex; justify-content: center; padding-top: 3px;">
+    <P style="margin-top: 30px; font-size: xx-large;display: flex; justify-content: center ;"> ⚠️ ملاحظة ⚠️</P>
+  </DIv>
+  <div class="div-vers">
+    <p style="font-size: x-large ; font-weight: bold;">الحصول على نتيجة في فترة قصيرة</p>
+  </div>
+  <DIv style="display: flex; justify-content: center; padding-top: 3px;">
+    <P style="border-top: solid 5px black; width: 20%; ;"></P>
+  </DIv>
+  <DIv style="display: flex; justify-content: center; padding-top: 3px;">
+    <P style="border-top: solid 5px black; width: 20%; ;"></P>
+  </DIv>
+
+
+  <div class="Responsive" style=" font-size:20px">
+
+    <div id="countdown">
+      <div class="circle" ><p id="seconds"></p><p style="font-size: small;">ثانية</p></div>
+      <div class="circle" ><p id="minutes"></p><p style="font-size: small;">دقيقة</p></div>
+      <div class="circle" ><p id="hours"></p><p style="font-size: small;"> ساعة</p></div>
+    </div>
+  </div>
+  <div class="demand-btn-2">
+    <button class="button-dmd"  id="orderButton2"> <p style="color:rgba(255, 255, 255); font-size: 150%;">اطلب الآن و لن تندم</p> <p class="fa fa-shopping-cart" style="display: flex; color: white; font-size: 150%;  margin-right: 20px;"></p></button>
+  </div>
+
+
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // ... Votre code existant ...
+
+    // Obtenez les références des images
+    var image1 = document.getElementById('image1');
+    var image2 = document.getElementById('image2');
+
+    // Configurez un tableau d'URL d'images à changer
+    var imageUrls = [
+      '/path/to/image1.jpg',
+      '/path/to/image2.jpg'
+      // Ajoutez autant d'URL d'images que nécessaire
+    ];
+
+    // Configurez la durée d'affichage de chaque image en millisecondes
+    var imageDisplayDuration = 5000; // 5 secondes
+
+    // Initialisez l'index de l'image actuelle
+    var currentImageIndex = 0;
+
+    // Fonction pour changer d'image
+    function changeImage() {
+      if (currentImageIndex >= imageUrls.length) {
+        currentImageIndex = 0; // Réinitialisez l'index lorsque toutes les images ont été affichées
+      }
+
+      // Changez la source des images
+      image1.src = imageUrls[currentImageIndex];
+      image2.src = imageUrls[currentImageIndex];
+
+      // Incrémentez l'index pour la prochaine itération
+      currentImageIndex++;
+
+      // Appelez la fonction récursivement après la durée spécifiée
+      setTimeout(changeImage, imageDisplayDuration);
+    }
+
+    // Appelez la fonction pour démarrer le changement d'images
+    changeImage();
+  });
+
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    function getParameterByName(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(location.href);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+// Obtenez la valeur du paramètre refLandP de l'URL
+    var refLandPValue = getParameterByName('refLandPA');
+
+    console.log('Valeur de refLandPA : ' + refLandPValue);
+
+    // Mettez la valeur dans l'input refLandP
+    document.getElementById('refLandPA').value = refLandPValue;
+  });
+
+
+  document.getElementById("orderButton2").addEventListener("click", function() {
+    scrollToTop();
+  });
+
+  document.getElementById("orderButton1").addEventListener("click", function() {
+    scrollToTop();
+  });
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+
+
+  function startCountdown(hours) {
+    // Calculate the total seconds
+    var totalSeconds = hours * 3600;
+
+    // Get the current time
+    var startTime = new Date().getTime();
+
+    // Update the countdown every second
+    var countdown = setInterval(function() {
+      // Get the current time
+      var currentTime = new Date().getTime();
+
+      // Calculate the elapsed time in seconds
+      var elapsedTime = Math.floor((currentTime - startTime) / 1000);
+
+      // Calculate the remaining time in seconds
+      var remainingSeconds = totalSeconds - elapsedTime;
+
+      // Check if the countdown is finished
+      if (remainingSeconds <= 0) {
+        clearInterval(countdown);
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+        document.getElementById("countdown").textContent = "Countdown finished!";
+        return;
+      }
+
+      // Calculate the hours, minutes, and seconds
+      var hours = Math.floor(remainingSeconds / 3600);
+      var minutes = Math.floor((remainingSeconds % 3600) / 60);
+      var seconds = remainingSeconds % 60;
+
+      // Format the countdown display
+      var hoursDisplay = hours.toString().padStart(2, "0");
+      var minutesDisplay = minutes.toString().padStart(2, "0");
+      var secondsDisplay = seconds.toString().padStart(2, "0");
+
+      // Display the countdown in separate circles
+      document.getElementById("hours").textContent = hoursDisplay;
+      document.getElementById("minutes").textContent = minutesDisplay;
+      document.getElementById("seconds").textContent = secondsDisplay;
+    }, 1000); // Update every second (1000 milliseconds)
+  }
+
+  // Start the countdown with 1 hour for testing
+  startCountdown(1);
+
+
+
+
+
+
+
+
+
+
+
+
+  const formElement = document.querySelector('form[name="formName"]');
+  const errorMessages = {}; // Objet pour stocker les messages d'erreur spécifiques
+
+  formElement.addEventListener('submit', function(event) {
+    event.preventDefault(); // Empêche la soumission du formulaire par défaut
+
+    const fullNameInput = document.getElementById('name');
+    const usernameInput = document.getElementById('commune');
+    const emailInput = document.getElementById('wilaya');
+    const phoneNumberInput = document.getElementById('numero');
+
+    // Expression régulière pour le champ FullName (الاسم الكامل) - Lettres arabes et espaces seulement
+    const fullNameRegex =/^[A-Za-z\u0600-\u06FF\s]+$/;
+    if (!fullNameRegex.test(fullNameInput.value)) {
+      errorMessages.name = '  ';
+    } else {
+      delete errorMessages.name; // Supprimer le message d'erreur s'il est valide
+    }
+
+    // Expression régulière pour le champ Username (رقم الهاتف) - 9 chiffres seulement
+    /*const usernameRegex = /^[A-Za-z\u0600-\u06FF\s]+$/;
+    if (!usernameRegex.test(usernameInput.value)) {
+        errorMessages.commune = ' ';
+    } else {
+        delete errorMessages.commune; // Supprimer le message d'erreur s'il est valide
+    }*/
+
+    // Expression régulière pour le champ Email (الولاية) - Format d'email valide
+    const emailRegex = /^[A-Za-z\u0600-\u06FF\s]+$/;
+    if (!emailRegex.test(emailInput.value)) {
+      errorMessages.wilaya = ' ';
+    } else {
+      delete errorMessages.wilaya; // Supprimer le message d'erreur s'il est valide
+    }
+
+    // Expression régulière pour le champ PhoneNumber (البلدية) - Chiffres seulement
+    /* const phoneNumberRegex = /^\d{10}$/ ;
+     if (!phoneNumberRegex.test(phoneNumberInput.value) ) {
+         errorMessages.numero= '  ';
+     } else {
+         delete errorMessages.numero; // Supprimer le message d'erreur s'il est valide
+     }*/
+
+    // Vérifiez s'il y a des champs invalides
+    if (Object.keys(errorMessages).length === 0) {
+      // Tous les champs sont valides, vous pouvez soumettre le formulaire
+      console.log('Tous les champs sont valides.');
+      formElement.submit(); // Soumettre le formulaire
+      /*Swal.fire({
+          icon: 'success',
+          title: 'شكرا',
+          text: 'تم إرسال طلبيتكم بنجاح ',
+      });*/
+
+    } else {
+      // Il y a des champs invalides, affichez le message d'erreur dans la page
+      let errorMessage = 'راجع معلوماتك الشخصية من فضلك';
+      for (const fieldName in errorMessages) {
+        errorMessage += ' ' + errorMessages[fieldName];
+      }
+      const errorMessageElement = document.getElementById('errorMessage');
+      errorMessageElement.textContent = errorMessage;
+    }
+  });
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

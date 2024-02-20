@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>List of Orders</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</head>
+<body>
+<div style="display: flex ; justify-content: center ; align-items: center">
+    <a href="/commandes" class="btn btn-info" style="margin-left: 5px">cmd en att</a>
+    <a href="/confirmedOrders" class="btn btn-success" style="margin-left: 5px">cmd confirmé</a>
+    <a href="/statistics" class="btn btn-dark" style="margin-left: 5px">statistic</a>
+    <a href="/choixParametre" class="btn btn-dark" style="margin-left: 5px">créer page</a>
+
+    <a th:href="@{/export/excel}" class="btn btn-primary">Exporter vers Excel</a>
+
+</div>
+
+<h1 style="text-align: center; margin: 10px 10px ;"> liste des commandes :</h1>
+
+<div class="container mt-3">
+    <div class="input-group mb-3 flex align-items-center" >
+        <span class="input-group-text">liste des commandes</span>
+        <input type="date" class="form-control" id="dateFilter" placeholder=" dd/MM/yyyy">
+        <button class="btn btn-primary mt-2" onclick="filterTable()">Filtrer</button>
+    </div>
+</div>
+
+<table class="table"   id="table_cmd1" border="1">
+    <thead class="thead-dark">
+    <tr >
+        <th scope="col" style="text-align: center">numero cmd</th>
+        <th scope="col" style="text-align: center">client</th>
+        <th scope="col" style="text-align: center">wilaya</th>
+        <th scope="col" style="text-align: center">commune</th>
+        <th scope="col" style="text-align: center">numero telephone</th>
+        <th scope="col" style="text-align: center">date cmd</th>
+        <th scope="col" style="text-align: center">nom Produit</th>
+        <th scope="col" style="text-align: center">confirmation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over the list of orders -->
+    <tr th:each="order : ${confirmedOrders}" class="table-row">
+        <td th:text="${order.idCmd}" style="text-align: center"></td>
+        <td th:text="${order.name}" style="text-align: center"></td>
+        <td th:text="${order.wilaya}" style="text-align: center"></td>
+        <td th:text="${order.commune}" style="text-align: center"></td>
+        <td th:text="${order.numero}" style="text-align: center"></td>
+        <td th:text="${#dates.format(order.dateCommande, 'dd/MM/yyyy HH:mm')}" style="text-align: center"></td>
+        <td th:text="${order.refLandPage}" style="text-align: center"></td>
+        <td style="text-align: center">Confirmé</td>
+
+    </tr>
+    </tbody>
+</table>
+<div id="emptyMessage" style="text-align: center; margin-top: 10px; " hidden="hidden">Rien à afficher</div>
+</div>
+
+<script>
+    // Variables
+    var rowsPerPage = 19;
+    var currentPage = 1;
+
+    // Function to show/hide rows based on current page
+    function showRows() {
+        var rows = $('.table-row');
+        var start = (currentPage - 1) * rowsPerPage;
+        var end = start + rowsPerPage;
+
+        rows.hide(); // Hide all rows
+        rows.slice(start, end).show(); // Show the rows for the current page
+    }
+
+    // Function to navigate to the previous page
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            showRows();
+        }
+    }
+
+    // Function to navigate to the next page
+    function nextPage() {
+        var totalRows = $('.table-row').length;
+        var totalPages = Math.ceil(totalRows / rowsPerPage);
+
+        if (currentPage < totalPages) {
+            currentPage++;
+            showRows();
+        }
+    }
+
+
+    // Initial setup
+    $(document).ready(function () {
+        showRows(); // Show initial rows on page load
+    });
+
+
+    function filterTable() {
+        var inputDate1 = String($('#dateFilter').val());
+
+        // Divisez la date en ses composants (année, mois, jour)
+        var dateComponents = inputDate1.split('-');
+
+        // Réorganisez les composants pour obtenir le format DD/MM/YYYY
+        var inputDate = dateComponents[2] + '/' + dateComponents[1] + '/' + dateComponents[0];
+
+        var rows = $('.table-row');
+
+        // Si la date est vide, réinitialiser le filtre
+        if (inputDate === "") {
+            rows.show();
+        } else {
+            // Sinon, masquer les lignes qui ne correspondent pas à la date filtrée
+            rows.each(function () {
+                var orderDate = $(this).find('td:eq(4)').text(); // Colonne de la date
+
+                if (orderDate.indexOf(inputDate) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+
+            // Recherche des lignes filtrées après la boucle each
+            var filteredRows = rows.filter(':visible');
+
+            if (filteredRows.length === 0) {
+                // Aucun résultat filtré, afficher le message
+                $('#emptyMessage').show();
+            } else {
+                // Afficher seulement les lignes filtrées
+                rows.hide();
+                filteredRows.show();
+                $('#emptyMessage').hide();  // Masquer le message
+            }
+        }
+    }
+
+
+</script>
+</body>
+
+
+</html>

@@ -16,7 +16,11 @@ public class CommandeRegistrationDto {
     private String commune;
 
 
-    private long refLandP=1;
+
+    private String refLandP;
+    private String refLandPA;
+    private String status="non confirmé";
+    private String nomProduit;
 
 
     public Date getDate() {
@@ -24,5 +28,13 @@ public class CommandeRegistrationDto {
     }
 
 
-
+    public CommandeRegistrationDto(String name, String numero, String wilaya, String commune, String refLandP, String status, String nomProduit) {
+        this.name = name;
+        this.numero = numero;
+        this.wilaya = wilaya;
+        this.commune = commune;
+        this.refLandP = refLandP;
+        this.status = status;
+        this.nomProduit = nomProduit;
+    }
 }
