@@ -24,4 +24,7 @@ public interface  CommandeService {
 
     void confirmOrder(Long orderId);
     void deleteOrder(Long orderId);
-    long calculerNombreTotalCommandes();}
+    long calculerNombreTotalCommandes();
+
+    void updateOrderStatus(Long orderId, String newStatus);
+}

@@ -3,7 +3,6 @@ package com.example.commerce.service;
 import com.example.commerce.modele.Commande;
 import com.example.commerce.repository.CommandeRepository;
 import com.example.commerce.web.dto.CommandeRegistrationDto;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,23 +19,6 @@ public class CommandeServiceImpl implements CommandeService{
         this.commandeRepository = commandeRepository;
     }
 
-    /*
-    @Override
-    public Commande save(CommandeRegistrationDto commandeRegistrationDto) {
-
-        Commande commande = new Commande(null,
-                        commandeRegistrationDto.getName(),
-                        commandeRegistrationDto.getWilaya(),
-                        commandeRegistrationDto.getCommune(),
-                        commandeRegistrationDto.getNumero(),
-                        commandeRegistrationDto.getDate(),
-                        commandeRegistrationDto.getRefLandP(),
-                        commandeRegistrationDto.getStatus(),
-                        commandeRegistrationDto.getNomProduit()
-                );
-        return commandeRepository.save(commande);
-    }
-    */
     @Override
     public Commande save(CommandeRegistrationDto commandeRegistrationDto, String refLandP,String situation) {
         String nomProduit = "huille romatisme".equals(situation) ? "huille romatisme" : "huille AntiVarice";
@@ -114,15 +96,22 @@ public class CommandeServiceImpl implements CommandeService{
         return "commande supprimé ! ";
     }
 
+
+
     @Override
     public void confirmOrder(Long orderId) {
         Commande cmd = commandeRepository.getReferenceById(orderId);
 
         cmd.setStatus("confirmé");
 
-        commandeRepository.save(cmd);
-        //  commandeRepository.updateStatusById(orderId, "confirmed");
+       commandeRepository.save(cmd);
+       //  commandeRepository.updateStatusById(orderId, "confirmed");
+
+
+
     }
+
+
 
     @Override
     public void deleteOrder(Long orderId) {
@@ -133,4 +122,13 @@ public class CommandeServiceImpl implements CommandeService{
     public long calculerNombreTotalCommandes() {
         return commandeRepository.count();
     }
+
+    @Override
+    public void updateOrderStatus(Long orderId, String newStatus) {
+        Commande cmd = commandeRepository.getReferenceById(orderId);
+        cmd.setStatus(newStatus);
+        commandeRepository.save(cmd);
+    }
+
+
 }

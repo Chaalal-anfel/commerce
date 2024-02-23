@@ -6,9 +6,7 @@ import com.example.commerce.service.CommandeService;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -34,7 +32,8 @@ public class page_officiel {
 
     @GetMapping("/huilleHouloul/pages/page/success")
     public String showRegistrationForm(){
-        return "huille/pageProduit" ;
+        return "" +
+                "huille/pageProduit" ;
     }
     @GetMapping("/AntiVarice/pages/page/success")
     public String showRegistrationFormA(){
@@ -67,12 +66,14 @@ public class page_officiel {
     }
 
 
+
     @GetMapping("/confirmOrder/{orderId}")
     public String confirmOrder(@PathVariable Long orderId) {
 
         commandeService.confirmOrder(orderId);
         return "redirect:/commandes"; // Redirect back to the orders page
     }
+
 
 
     @GetMapping("/deleteOrder/{orderId}")
@@ -105,4 +106,14 @@ public class page_officiel {
     public String showParametreSelectionPage() {
         return "choixParametre";
     }
+
+
+    @PostMapping("/updateOrderStatus")
+    public String updateOrderStatus(@ModelAttribute("order") Commande order) {
+        commandeService.updateOrderStatus(order.getIdCmd(), order.getStatus());
+        return "redirect:/commandes";
+    }
+
+
+
 }

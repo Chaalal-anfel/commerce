@@ -39,7 +39,7 @@ public class ExcelController {
 
         // Ajoutez les en-têtes à la ligne d'en-têtes
         Row headerRow = sheet.createRow(0);
-        String[] headers = {"numéro cmd", "client", "wilaya", "numero téléphone", "date cmd", "nom produit","url","status Cmd"};
+        String[] headers = {"numéro cmd", "client", "wilaya","commune", "numero téléphone", "date cmd", "nom produit","url","status Cmd"};
         for (int i = 0; i < headers.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(headers[i]);
@@ -52,11 +52,12 @@ public class ExcelController {
             row.createCell(0).setCellValue(commande.getIdCmd());
             row.createCell(1).setCellValue(commande.getName());
             row.createCell(2).setCellValue(commande.getWilaya());
-            row.createCell(3).setCellValue(commande.getNumero());
-            row.createCell(4).setCellValue(commande.getDateCommande().toString());
-            row.createCell(5).setCellValue(commande.getNomProduit());
-            row.createCell(6).setCellValue(commande.getRefLandPage());
-            row.createCell(7).setCellValue(commande.getStatus());
+            row.createCell(3).setCellValue(commande.getCommune());
+            row.createCell(4).setCellValue(commande.getNumero());
+            row.createCell(5).setCellValue(commande.getDateCommande().toString());
+            row.createCell(6).setCellValue(commande.getNomProduit());
+            row.createCell(7).setCellValue(commande.getRefLandPage());
+            row.createCell(8).setCellValue(commande.getStatus());
 
             // Ajoutez d'autres colonnes selon votre modèle Commande
         }

@@ -18,12 +18,14 @@
     <a href="/confirmedOrders" class="btn btn-success" style="margin-left: 5px">cmd confirmé</a>
     <a href="/statistics" class="btn btn-dark" style="margin-left: 5px">statistic</a>
     <a href="/choixParametre" class="btn btn-dark" style="margin-left: 5px">créer page</a>
+    <a th:href="@{/export/excel}" class="btn btn-primary">Exporter vers Excel</a>
+
 </div>
 
 <form th:action="@{/huilleHouloul/generate}" method="post" class="container mt-5">
     <div class="form-group">
         <label for="refLandP">choisir lien</label>
-        <input type="text" id="refLandP" name="refLandP" class="form-control" placeholder="Entrez la valeur...">
+        <input type="text" id="refLandP" name="refLandP" class="form-control" placeholder="ici pour huille houloul">
     </div>
 
     <button type="submit" class="btn btn-success">crée la page</button>
@@ -31,7 +33,7 @@
 <form th:action="@{/AntiVarice/generate}" method="post" class="container mt-5">
     <div class="form-group">
         <label for="refLandPA">choisir lien</label>
-        <input type="text" id="refLandPA" name="refLandPA" class="form-control" placeholder="Entrez la valeur...">
+        <input type="text" id="refLandPA" name="refLandPA" class="form-control" placeholder="ici pour AntiVarice">
     </div>
 
     <button type="submit" class="btn btn-success">crée la page</button>
