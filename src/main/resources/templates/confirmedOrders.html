@@ -50,7 +50,7 @@
         <td th:text="${order.numero}" style="text-align: center"></td>
         <td th:text="${#dates.format(order.dateCommande, 'dd/MM/yyyy HH:mm')}" style="text-align: center"></td>
         <td th:text="${order.refLandPage}" style="text-align: center"></td>
-        <td style="text-align: center">Confirmé</td>
+        <td th:text="${order.status}" style="text-align: center"></td>
 
     </tr>
     </tbody>

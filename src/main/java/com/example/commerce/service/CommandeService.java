@@ -8,7 +8,6 @@ import java.util.List;
 public interface  CommandeService {
 
     Commande save(CommandeRegistrationDto commandeRegistrationDto, String refLandP,String situation);
-    Commande saveA(CommandeRegistrationDto commandeRegistrationDto);
 
 
     List<Commande> lire();
@@ -18,6 +17,8 @@ public interface  CommandeService {
 
     Commande getById(Long id);
 
+    Commande mettreAjourStatusCommande(Long id, String nouveauStatus);
+
     Commande modifier(Long id, Commande commande);
 
     String supprimer(Long id);
@@ -26,5 +27,4 @@ public interface  CommandeService {
     void deleteOrder(Long orderId);
     long calculerNombreTotalCommandes();
 
-    void updateOrderStatus(Long orderId, String newStatus);
 }

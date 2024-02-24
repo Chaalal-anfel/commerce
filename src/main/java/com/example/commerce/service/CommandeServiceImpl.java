@@ -36,20 +36,7 @@ public class CommandeServiceImpl implements CommandeService{
         );
         return commandeRepository.save(commande);
     }
-    @Override
-    public Commande saveA(CommandeRegistrationDto commandeRegistrationDto) {
-        Commande commande = new Commande(null,
-                commandeRegistrationDto.getName(),
-                commandeRegistrationDto.getWilaya(),
-                commandeRegistrationDto.getCommune(),
-                commandeRegistrationDto.getNumero(),
-                commandeRegistrationDto.getDate(),
-                commandeRegistrationDto.getRefLandPA(),
-                commandeRegistrationDto.getStatus(),
-                commandeRegistrationDto.getNomProduit()
-        );
-        return commandeRepository.save(commande);
-    }
+
 
     @Override
     public List<Commande> lire() {
@@ -64,7 +51,7 @@ public class CommandeServiceImpl implements CommandeService{
 
     @Override
     public List<Commande> lireConfirmed() {
-        return commandeRepository.findByStatus("confirmé");
+        return commandeRepository.findAll();
     }
 
 
@@ -77,6 +64,16 @@ public class CommandeServiceImpl implements CommandeService{
         commandeRepository.save(cmd);
         return cmd ;
 
+    }
+
+    @Override
+    public Commande mettreAjourStatusCommande(Long id, String nouveauStatus) {
+        return commandeRepository.findById(id)
+                .map(c -> {
+                    c.setStatus(nouveauStatus);
+                    return commandeRepository.save(c);
+                })
+                .orElseThrow(() -> new RuntimeException("Commande non trouvée !"));
     }
 
     @Override
@@ -102,7 +99,6 @@ public class CommandeServiceImpl implements CommandeService{
     public void confirmOrder(Long orderId) {
         Commande cmd = commandeRepository.getReferenceById(orderId);
 
-        cmd.setStatus("confirmé");
 
        commandeRepository.save(cmd);
        //  commandeRepository.updateStatusById(orderId, "confirmed");
@@ -123,12 +119,7 @@ public class CommandeServiceImpl implements CommandeService{
         return commandeRepository.count();
     }
 
-    @Override
-    public void updateOrderStatus(Long orderId, String newStatus) {
-        Commande cmd = commandeRepository.getReferenceById(orderId);
-        cmd.setStatus(newStatus);
-        commandeRepository.save(cmd);
-    }
+
 
 
 }

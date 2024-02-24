@@ -67,11 +67,18 @@
         <td th:text="${#dates.format(order.dateCommande, 'dd/MM/yyyy HH:mm')}" style="text-align: center"></td>
         <td th:text="${order.refLandPage}" style="text-align: center"></td>
 
-        <td style="text-align: center">
-            <a class="btn btn-success" th:href="@{'/confirmOrder/' + ${order.idCmd}}" >Confirmer</a>
-            <!-- Inside the <form> tag for each order -->
 
-            <a class="btn btn-danger" th:href="@{'/deleteOrder/' + ${order.idCmd}}">supprimer</a>
+
+
+        <td style="text-align: center">
+            <form th:action="@{'/updateOrderStatus/' + ${order.idCmd}}" method="post">
+
+                <select name="etat" class="form-control">
+                    <option th:each="etat : ${etatList}" th:value="${etat}" th:text="${etat}" th:selected="${etat == order.status}"></option>
+                </select>
+                <button class="btn btn-success" type="submit">Confirmer</button>
+            </form>
+
         </td>
 
     </tr>

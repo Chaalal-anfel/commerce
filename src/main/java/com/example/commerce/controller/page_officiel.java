@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -108,12 +110,27 @@ public class page_officiel {
     }
 
 
-    @PostMapping("/updateOrderStatus")
-    public String updateOrderStatus(@ModelAttribute("order") Commande order) {
-        commandeService.updateOrderStatus(order.getIdCmd(), order.getStatus());
-        return "redirect:/commandes";
+
+
+    @ModelAttribute("etatList")
+    public List<String> getEtatList() {
+        List<String> etats = Arrays.asList(
+                "Pas sérieux", "Annulé", "Attente", "Injoignable", "Répond pas",
+                "Faux numéro", "Autre (Remarque)", "Confirmé", "Reporté",
+                "Doublon", "Expédié", "Fin stock", "Test", "Trop loin"
+        );
+
+        // Triez la liste alphabétiquement
+        Collections.sort(etats);
+
+        return etats;
     }
 
+    @PostMapping("/updateOrderStatus/{orderId}")
+    public String updateOrderStatus(@PathVariable Long orderId, @RequestParam String etat) {
+        commandeService.mettreAjourStatusCommande(orderId, etat);
+        return "redirect:/commandes";
+    }
 
 
 }
