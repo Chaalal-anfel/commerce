@@ -21,11 +21,11 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '802084565273965');
+    fbq('init', '1401906067095827');
     fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none"
-                 src="https://www.facebook.com/tr?id=802084565273965&ev=PageView&noscript=1"
+                 src="https://www.facebook.com/tr?id=1401906067095827&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
 </head>
@@ -118,49 +118,30 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 
 
+
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // ... Votre code existant ...
 
-    // Obtenez les références des images
-    var image1 = document.getElementById('image1');
-    var image2 = document.getElementById('image2');
 
-    // Configurez un tableau d'URL d'images à changer
-    var imageUrls = [
-      '/path/to/image1.jpg',
-      '/path/to/image2.jpg'
-      // Ajoutez autant d'URL d'images que nécessaire
-    ];
 
-    // Configurez la durée d'affichage de chaque image en millisecondes
-    var imageDisplayDuration = 5000; // 5 secondes
 
-    // Initialisez l'index de l'image actuelle
-    var currentImageIndex = 0;
+  // Fonction pour vider les champs du formulaire
+  function clearFormFields() {
+    document.getElementById('name').value = '';
+    document.getElementById('numero').value = '';
+    document.getElementById('wilaya').value = '';
+    document.getElementById('commune').value = '';
+  }
 
-    // Fonction pour changer d'image
-    function changeImage() {
-      if (currentImageIndex >= imageUrls.length) {
-        currentImageIndex = 0; // Réinitialisez l'index lorsque toutes les images ont été affichées
-      }
-
-      // Changez la source des images
-      image1.src = imageUrls[currentImageIndex];
-      image2.src = imageUrls[currentImageIndex];
-
-      // Incrémentez l'index pour la prochaine itération
-      currentImageIndex++;
-
-      // Appelez la fonction récursivement après la durée spécifiée
-      setTimeout(changeImage, imageDisplayDuration);
-    }
-
-    // Appelez la fonction pour démarrer le changement d'images
-    changeImage();
+  // Attacher la fonction clearFormFields à l'événement DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', function () {
+    // Appeler clearFormFields lorsque la page est chargée
+    clearFormFields();
   });
 
-
+  // Attacher la fonction clearFormFields à l'événement beforeunload pour vider les champs avant le rechargement
+  window.addEventListener('beforeunload', function () {
+    clearFormFields();
+  });
 
   document.addEventListener('DOMContentLoaded', function() {
     function getParameterByName(name) {
@@ -170,10 +151,10 @@
       return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
-// Obtenez la valeur du paramètre refLandP de l'URL
+    // Obtenez la valeur du paramètre refLandP de l'URL
     var refLandPValue = getParameterByName('refLandPA');
 
-    console.log('Valeur de refLandPA : ' + refLandPValue);
+    console.log('Valeur de refLandP : ' + refLandPValue);
 
     // Mettez la valeur dans l'input refLandP
     document.getElementById('refLandPA').value = refLandPValue;
@@ -247,15 +228,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
   const formElement = document.querySelector('form[name="formName"]');
   const errorMessages = {}; // Objet pour stocker les messages d'erreur spécifiques
 
@@ -320,14 +292,6 @@
       errorMessageElement.textContent = errorMessage;
     }
   });
-
-
-
-
-
-
-
-
 </script>
 </body>
 </html>

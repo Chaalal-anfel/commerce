@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -45,8 +46,6 @@ public class page_officiel {
     @GetMapping("/commandes")
     public String showOrders(Model model) {
         List<Commande> orders = this.commandeService.lire();
-        System.out.printf(orders.toString());
-
         // Décaler les dates d'une heure dans la liste des commandes
         List<Commande> shiftedOrders = orders.stream()
                 .map(commande -> {
@@ -54,7 +53,8 @@ public class page_officiel {
                     return commande;
                 })
                 .collect(Collectors.toList());
-
+        // Reverse the list of orders
+        Collections.reverse(shiftedOrders);
         model.addAttribute("orders", shiftedOrders);
         return "orders";
     }
@@ -63,6 +63,8 @@ public class page_officiel {
     @GetMapping("/confirmedOrders")
     public String showConfirmedOrders(Model model){
         List<Commande> orders= this.commandeService.lireConfirmed();
+        // Reverse the list of confirmed orders
+        Collections.reverse(orders);
         model.addAttribute("confirmedOrders", orders);
         return "confirmedOrders";
     }
@@ -112,6 +114,8 @@ public class page_officiel {
 
 
 
+
+
     @ModelAttribute("etatList")
     public List<String> getEtatList() {
         List<String> etats = Arrays.asList(
@@ -126,11 +130,30 @@ public class page_officiel {
         return etats;
     }
 
+    /*
     @PostMapping("/updateOrderStatus/{orderId}")
     public String updateOrderStatus(@PathVariable Long orderId, @RequestParam String etat) {
         commandeService.mettreAjourStatusCommande(orderId, etat);
         return "redirect:/commandes";
     }
 
+     */
+
+    @PostMapping("/updateOrderStatus/{orderId}")
+    public String updateOrderStatus(@PathVariable Long orderId, @RequestParam String etat, Principal principal) {
+        String username = principal.getName();
+        // Utilisez le nom d'utilisateur pour identifier l'utilisateur qui a effectué l'action
+        commandeService.mettreAjourStatusCommande(orderId, etat, username);
+        return "redirect:/commandes";
+    }
+
+    @GetMapping("/onlyConfirmedOrders")
+    public String showOnlyConfirmedOrders(Model model){
+        List<Commande> orders= this.commandeService.lireCommandesConfirme();
+        // Reverse the list of confirmed orders
+        Collections.reverse(orders);
+        model.addAttribute("onlyConfirmedOrders", orders);
+        return "onlyConfirmedOrders";
+    }
 
 }

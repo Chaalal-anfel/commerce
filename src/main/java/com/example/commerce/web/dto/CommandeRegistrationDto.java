@@ -19,9 +19,10 @@ public class CommandeRegistrationDto {
 
     private String refLandP;
     private String refLandPA;
-    private String status="non confirmé";
+    private String status="non traitée";
     private String nomProduit;
 
+    private String lastModifyBy;
 
     public Date getDate() {
         return new Date();
@@ -36,5 +37,6 @@ public class CommandeRegistrationDto {
         this.refLandP = refLandP;
         this.status = status;
         this.nomProduit = nomProduit;
+        this.lastModifyBy= lastModifyBy;
     }
 }

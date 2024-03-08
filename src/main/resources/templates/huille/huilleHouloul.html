@@ -21,11 +21,11 @@
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1588080165294067');
+        fbq('init', '6952372484872485');
         fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-                   src="https://www.facebook.com/tr?id=1588080165294067&ev=PageView&noscript=1"
+                   src="https://www.facebook.com/tr?id=6952372484872485&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
 </head>
@@ -39,7 +39,7 @@
                 <span class="value">2900</span>
                 <span class="currency" style="font-size: medium;">&nbsp;د.ج</span></p>
         </div>
-        <form th:action="@{'/huilleHouloul/pages/' + ${refLandP}}" method="post" th:object="${commande}" name="formName">
+        <form th:action="@{'/huilleHouloul/pages/' + ${refLandP}}" method="post" th:object="${commande}" name="formName" >
             <div class="main-user-info">
                 <div class="user-input-box">
                     <input th:field="*{name}" type="text" id="name" name="name" required autofocus="autofocus" placeholder="الرجاء ادخال الاسم كاملا" />
@@ -120,6 +120,27 @@
 <script>
 
 
+
+
+    // Fonction pour vider les champs du formulaire
+    function clearFormFields() {
+        document.getElementById('name').value = '';
+        document.getElementById('numero').value = '';
+        document.getElementById('wilaya').value = '';
+        document.getElementById('commune').value = '';
+    }
+
+    // Attacher la fonction clearFormFields à l'événement DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', function () {
+        // Appeler clearFormFields lorsque la page est chargée
+        clearFormFields();
+    });
+
+    // Attacher la fonction clearFormFields à l'événement beforeunload pour vider les champs avant le rechargement
+    window.addEventListener('beforeunload', function () {
+        clearFormFields();
+    });
+
         document.addEventListener('DOMContentLoaded', function() {
             function getParameterByName(name) {
                 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -128,7 +149,7 @@
                 return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
             }
 
-// Obtenez la valeur du paramètre refLandP de l'URL
+        // Obtenez la valeur du paramètre refLandP de l'URL
             var refLandPValue = getParameterByName('refLandP');
 
             console.log('Valeur de refLandP : ' + refLandPValue);

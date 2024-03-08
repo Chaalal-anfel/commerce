@@ -15,9 +15,12 @@ public interface  CommandeService {
     List<Commande> lireAll();
     List<Commande> lireConfirmed();
 
+    List<Commande> lireCommandesConfirme();
     Commande getById(Long id);
 
-    Commande mettreAjourStatusCommande(Long id, String nouveauStatus);
+
+
+    Commande mettreAjourStatusCommande(Long id, String nouveauStatus, String username);
 
     Commande modifier(Long id, Commande commande);
 

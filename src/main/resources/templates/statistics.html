@@ -7,12 +7,12 @@
 </head>
 <body>
 <div style="display: flex ; justify-content: center ; align-items: center">
-  <a href="/commandes" class="btn btn-info" style="margin-left: 5px">cmd en att</a>
-  <a href="/confirmedOrders" class="btn btn-success" style="margin-left: 5px">cmd confirmé</a>
-  <a href="/statistics" class="btn btn-dark" style="margin-left: 5px">statistic</a>
-  <a href="/choixParametre" class="btn btn-dark" style="margin-left: 5px">créer page</a>
-  <a th:href="@{/export/excel}" class="btn btn-primary">Exporter vers Excel</a>
-
+  <a href="/commandes" class="btn btn-info" style="margin-left: 5px;  width : 200px">Commandes en Attentes</a>
+  <a href="/confirmedOrders" class="btn btn-primary" style="margin-left: 5px ;  width : 200px">Commandes non Confirmées</a>
+  <a href="/onlyConfirmedOrders" class="btn btn-success" style="margin-left: 5px ;  width : 200px">Commandes Confirmées</a>
+  <a href="/statistics" class="btn btn-dark" style="margin-left: 5px ;  width : 100px">statistic</a>
+  <a href="/choixParametre" class="btn btn-dark" style="margin-left: 5px ;  width : 100px">créer page</a>
+  <a th:href="@{/export/excel}" class="btn btn-primary" style="width : 150px; margin-left: 5px">Exporter vers Excel</a>
 </div>
 
 

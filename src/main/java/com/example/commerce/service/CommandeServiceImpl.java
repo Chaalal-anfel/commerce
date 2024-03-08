@@ -32,7 +32,8 @@ public class CommandeServiceImpl implements CommandeService{
                 commandeRegistrationDto.getDate(),
                 refLandP,
                 commandeRegistrationDto.getStatus(),
-                situation
+                situation,
+                commandeRegistrationDto.getLastModifyBy()
         );
         return commandeRepository.save(commande);
     }
@@ -40,7 +41,7 @@ public class CommandeServiceImpl implements CommandeService{
 
     @Override
     public List<Commande> lire() {
-        return commandeRepository.findByStatus("non confirmé");
+        return commandeRepository.findByStatus("non traitée");
     }
 
     @Override
@@ -48,10 +49,14 @@ public class CommandeServiceImpl implements CommandeService{
         return commandeRepository.findAll();
     }
 
+    @Override
+    public  List<Commande> lireCommandesConfirme(){
+        return commandeRepository.findByStatus("confirmé");
+    }
 
     @Override
     public List<Commande> lireConfirmed() {
-        return commandeRepository.findAll();
+        return commandeRepository.findAllByStatusNot("Non traitée","confirmé");
     }
 
 
@@ -66,6 +71,9 @@ public class CommandeServiceImpl implements CommandeService{
 
     }
 
+
+
+    /*
     @Override
     public Commande mettreAjourStatusCommande(Long id, String nouveauStatus) {
         return commandeRepository.findById(id)
@@ -76,6 +84,19 @@ public class CommandeServiceImpl implements CommandeService{
                 .orElseThrow(() -> new RuntimeException("Commande non trouvée !"));
     }
 
+*/
+
+    @Override
+    public Commande mettreAjourStatusCommande(Long id, String nouveauStatus, String username) {
+        return commandeRepository.findById(id)
+                .map(c -> {
+                    // Vous pouvez maintenant utiliser le nom d'utilisateur comme vous le souhaitez, par exemple, le stocker dans la commande mise à jour
+                    c.setStatus(nouveauStatus);
+                    c.setLastModifiedBy(username);
+                    return commandeRepository.save(c);
+                })
+                .orElseThrow(() -> new RuntimeException("Commande non trouvée !"));
+    }
     @Override
     public Commande modifier(Long id, Commande commande) {
         return commandeRepository.findById(id)
@@ -118,6 +139,7 @@ public class CommandeServiceImpl implements CommandeService{
     public long calculerNombreTotalCommandes() {
         return commandeRepository.count();
     }
+
 
 
 

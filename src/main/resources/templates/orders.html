@@ -14,13 +14,12 @@
 </head>
 <body>
 <div style="display: flex ; justify-content: center ; align-items: center">
-    <a href="/commandes" class="btn btn-info" style="margin-left: 5px">cmd en att</a>
-    <a href="/confirmedOrders" class="btn btn-success" style="margin-left: 5px">cmd confirmé</a>
-    <a href="/statistics" class="btn btn-dark" style="margin-left: 5px">statistic</a>
-    <a href="/choixParametre" class="btn btn-dark" style="margin-left: 5px">créer page</a>
-
-
-    <a th:href="@{/export/excel}" class="btn btn-primary">Exporter vers Excel</a>
+    <a href="/commandes" class="btn btn-info" style="margin-left: 5px;  width : 200px">Commandes en Attentes</a>
+    <a href="/confirmedOrders" class="btn btn-primary" style="margin-left: 5px ;  width : 200px">Commandes Traitées</a>
+    <a href="/onlyConfirmedOrders" class="btn btn-success" style="margin-left: 5px ;  width : 200px">Commandes Confirmées</a>
+    <a href="/statistics" class="btn btn-dark" style="margin-left: 5px ;  width : 100px">statistic</a>
+    <a href="/choixParametre" class="btn btn-dark" style="margin-left: 5px ;  width : 100px">créer page</a>
+    <a th:href="@{/export/excel}" class="btn btn-primary" style="width : 150px; margin-left: 5px">Exporter vers Excel</a>
 
 </div>
 
@@ -74,9 +73,11 @@
             <form th:action="@{'/updateOrderStatus/' + ${order.idCmd}}" method="post">
 
                 <select name="etat" class="form-control">
+                    <option value="" th:selected="${order.status == null}">.......</option>
+
                     <option th:each="etat : ${etatList}" th:value="${etat}" th:text="${etat}" th:selected="${etat == order.status}"></option>
                 </select>
-                <button class="btn btn-success" type="submit">Confirmer</button>
+                <button class="btn btn-success" type="submit">Valider Status</button>
             </form>
 
         </td>
@@ -97,7 +98,7 @@
 
 <script>
     // Variables
-    var rowsPerPage = 19;
+    var rowsPerPage = 100;
     var currentPage = 1;
 
     // Function to show/hide rows based on current page

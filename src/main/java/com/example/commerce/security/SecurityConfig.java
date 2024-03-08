@@ -44,11 +44,41 @@ public class SecurityConfig {
                 .password(passwordEncoder.encode("lidia"))
                 .roles("ADMIN")
                 .build();
-        UserDetails usr = User.builder()
-                .username("delege.01")
-                .password(passwordEncoder.encode("delege"))
+        UserDetails usr1 = User.builder()
+                .username("khelassi_Sara")
+                .password(passwordEncoder.encode("SaraDelege*1"))
                 .roles("USER")
                 .build();
-        return new InMemoryUserDetailsManager(admin,admin1,usr);
+        UserDetails usr2 = User.builder()
+                .username("Benali_Imene")
+                .password(passwordEncoder.encode("ImeneDelege**2"))
+                .roles("USER")
+                .build();
+        UserDetails usr3 = User.builder()
+                .username("Zeeoiali_Meriem")
+                .password(passwordEncoder.encode("MeriemDelege***3"))
+                .roles("USER")
+                .build();
+        UserDetails usr4 = User.builder()
+                .username("Bouguerra_Randa")
+                .password(passwordEncoder.encode("RandaDelege****4"))
+                .roles("USER")
+                .build();
+        UserDetails usr5 = User.builder()
+                .username("Ladjal_Chaima")
+                .password(passwordEncoder.encode("ChaimaDelege*****5"))
+                .roles("USER")
+                .build();
+        UserDetails usr6 = User.builder()
+                .username("Nadjet_Ecommerce")
+                .password(passwordEncoder.encode("NadjetDelege******6"))
+                .roles("USER")
+                .build();
+        UserDetails usr7 = User.builder()
+                .username("Chahrazed_Ecommerce")
+                .password(passwordEncoder.encode("ChahrazedDelege*******7"))
+                .roles("USER")
+                .build();
+        return new InMemoryUserDetailsManager(admin,admin1,usr1,usr2,usr3,usr4,usr5,usr6,usr7);
     }
 }

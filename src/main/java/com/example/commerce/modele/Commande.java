@@ -39,6 +39,8 @@ public class Commande {
     private String status;
     private String nomProduit;
 
+    private String lastModifiedBy;
+
 
 
 
