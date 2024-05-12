@@ -22,6 +22,7 @@ public class CommandeRegistrationDto {
     private String status="non traitée";
     private String nomProduit;
 
+    private String affectedTo = ".....";
     private String lastModifyBy;
 
     public Date getDate() {
@@ -37,6 +38,7 @@ public class CommandeRegistrationDto {
         this.refLandP = refLandP;
         this.status = status;
         this.nomProduit = nomProduit;
+        this.affectedTo = affectedTo;
         this.lastModifyBy= lastModifyBy;
     }
 }

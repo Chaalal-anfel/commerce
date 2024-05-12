@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <!-- Ajout de Bootstrap via CDN pour le design responsive -->
+  <link href='https://fonts.googleapis.com/css?family=Cairo' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Utilisation de Bootstrap à partir du CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>choix url</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" th:href="@{/css/styleChoix.css}" />
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="container-fluid ">
+  <h1>Liste des commandes de l'utilisateur</h1>
+  <div id="test">
+  <table class="table" border="1">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col" style="text-align: center">N°Cmd</th>
+      <th scope="col" style="text-align: center">Client</th>
+      <th scope="col" style="text-align: center">Wilaya</th>
+      <th scope="col" style="text-align: center">Commune</th>
+      <th scope="col" style="text-align: center">Numéro Téléphone</th>
+      <th scope="col" style="text-align: center">nom Produit</th>
+      <th scope="col" style="text-align: center">Date Commande</th>
+      <th scope="col" style="text-align: center">delege Commande</th>
+      <!--<th scope="col" style="text-align: center">status</th>-->
+
+      <!-- Ajoutez d'autres colonnes si nécessaire -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="commande : ${userCommandes}" class="table-row">
+      <td th:text="${commande.idCmd}"></td>
+      <td th:text="${commande.name}"></td>
+      <td th:text="${commande.wilaya}"></td>
+      <td th:text="${commande.commune}"></td>
+      <td th:text="${commande.numero}"></td>
+      <td th:text="${commande.nomProduit}"></td>
+
+      <td th:text="${#dates.format(commande.dateCommande, 'dd/MM/yyyy HH:mm')}"></td>
+      <td th:text="${commande.affectedTo}"></td>
+
+
+      <!-- Ajoutez d'autres colonnes si nécessaire -->
+      <td style="text-align: center">
+        <form th:action="@{'/updateOrderStatus/' + ${commande.idCmd}}" method="post">
+          <select name="etat"  class="form-control">
+            <option value="" th:selected="${commande.status == null}">.......</option>
+            <option th:each="etat : ${etatList}" th:value="${etat}" th:text="${etat}"
+                    th:selected="${etat == commande.status}"></option>
+          </select>
+          <button class="btn btn-success" type="submit">Valider Status</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+
+</div>
+
+
+
+</body>
+
+</html>

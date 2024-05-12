@@ -39,7 +39,7 @@ public class ExcelController {
 
         // Ajoutez les en-têtes à la ligne d'en-têtes
         Row headerRow = sheet.createRow(0);
-        String[] headers = {"numéro cmd", "client", "wilaya","commune", "numero téléphone", "date cmd", "nom produit","url","status Cmd","traité par"};
+        String[] headers = {"numéro cmd", "client", "wilaya","commune", "numero téléphone", "date cmd", "nom produit","url","status Cmd","affecté à","traité par"};
         for (int i = 0; i < headers.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(headers[i]);
@@ -58,7 +58,9 @@ public class ExcelController {
             row.createCell(6).setCellValue(commande.getNomProduit());
             row.createCell(7).setCellValue(commande.getRefLandPage());
             row.createCell(8).setCellValue(commande.getStatus());
-            row.createCell(9).setCellValue(commande.getLastModifiedBy());
+            row.createCell(9).setCellValue(commande.getAffectedTo());
+            row.createCell(10).setCellValue(commande.getLastModifiedBy());
+
 
             // Ajoutez d'autres colonnes selon votre modèle Commande
         }

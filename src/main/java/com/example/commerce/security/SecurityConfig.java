@@ -23,10 +23,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authz) -> authz
-                .requestMatchers("/commandes").authenticated()
-                .requestMatchers("/confirmedOrders").authenticated()
-                .requestMatchers("/statistics").authenticated()
-                .requestMatchers("/choixParametre").authenticated()
+                .requestMatchers("/commandes").hasRole("ADMIN")
+                .requestMatchers("/confirmedOrders").hasRole("ADMIN")
+                .requestMatchers("/statistics").hasRole("ADMIN")
+                .requestMatchers("/choixParametre").hasRole("ADMIN")
+                .requestMatchers("/countDistinctCommandsByDateAndRefLandPage").hasRole("ADMIN")
+                .requestMatchers("/userCommandes").authenticated()
                 .anyRequest().permitAll()
         ).httpBasic(Customizer.withDefaults());
         return http.build();
@@ -47,7 +49,7 @@ public class SecurityConfig {
         UserDetails usr1 = User.builder()
                 .username("khelassi_Sara")
                 .password(passwordEncoder.encode("SaraDelege*1"))
-                .roles("USER")
+                .roles("ADMIN")
                 .build();
         UserDetails usr2 = User.builder()
                 .username("Benali_Imene")

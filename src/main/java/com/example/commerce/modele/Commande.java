@@ -30,15 +30,11 @@ public class Commande {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCommande;
 
-    /*
-    @ManyToOne(targetEntity = Produit.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idLand",referencedColumnName = "idLandP")
-    */
-
     private String refLandPage;
     private String status;
     private String nomProduit;
 
+    private  String affectedTo ;
     private String lastModifiedBy;
 
 

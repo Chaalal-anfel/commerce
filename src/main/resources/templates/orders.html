@@ -2,26 +2,70 @@
 <html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
 <head>
     <title>List of Orders</title>
+    <!-- Ajout de Bootstrap via CDN pour le design responsive -->
+    <link href='https://fonts.googleapis.com/css?family=Cairo' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Utilisation de Bootstrap à partir du CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tableexport@5.0.3/dist/css/tableexport.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.3/dist/xlsx.full.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tableexport@5.0.3/dist/js/tableexport.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>choix url</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/styleChoix.css}" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 
 </head>
 <body>
-<div style="display: flex ; justify-content: center ; align-items: center">
-    <a href="/commandes" class="btn btn-info" style="margin-left: 5px;  width : 200px">Commandes en Attentes</a>
-    <a href="/confirmedOrders" class="btn btn-primary" style="margin-left: 5px ;  width : 200px">Commandes Traitées</a>
-    <a href="/onlyConfirmedOrders" class="btn btn-success" style="margin-left: 5px ;  width : 200px">Commandes Confirmées</a>
-    <a href="/statistics" class="btn btn-dark" style="margin-left: 5px ;  width : 100px">statistic</a>
-    <a href="/choixParametre" class="btn btn-dark" style="margin-left: 5px ;  width : 100px">créer page</a>
-    <a th:href="@{/export/excel}" class="btn btn-primary" style="width : 150px; margin-left: 5px">Exporter vers Excel</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light"  >
+    <div class="container-fluid" >
+        <a class="navbar-brand" href="#">
+            <img src="images/logo-houloul.png">
+        </a>
+        <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-</div>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+
+                    <a href="/choix-ids" class="nav-link active" style="margin-left: 5px;  ">Mon Espace</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/choixParametre" class="nav-link active" style="margin-left: 5px ;  ">créer page</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        statistic
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a href="/statistics" class="dropdown-item " style="margin-left: 5px;  ">Statistique Global</a></li>
+                        <li><a href="/countDistinctCommandsByDateAndRefLandPage" class="dropdown-item " style="margin-left: 5px ;  ">Statistique par date</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/export/excel}" class="nav-link active" style=" margin-left: 5px">Exporter vers Excel</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Suivis Commandes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a href="/commandes" class="dropdown-item " style="margin-left: 5px;  ">Commandes en Attentes</a></li>
+                        <li><a href="/confirmedOrders" class="dropdown-item " style="margin-left: 5px ;  ">Commandes Traitées</a></li>
+                        <li><a href="/onlyConfirmedOrders" class="dropdown-item " style="margin-left: 5px ;  ">Commandes Confirmées</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 
 
@@ -52,7 +96,8 @@
         <th scope="col" style="text-align: center">numero telephone</th>
         <th scope="col" style="text-align: center">date cmd</th>
         <th scope="col" style="text-align: center">nom Produit</th>
-        <th scope="col" style="text-align: center">confirmation</th>
+        <th scope="col" style="text-align: center">delege</th>
+        <!--<th scope="col" style="text-align: center">status</th>-->
     </tr>
     </thead>
     <tbody>
@@ -65,11 +110,12 @@
         <td th:text="${order.numero}" style="text-align: center"></td>
         <td th:text="${#dates.format(order.dateCommande, 'dd/MM/yyyy HH:mm')}" style="text-align: center"></td>
         <td th:text="${order.refLandPage}" style="text-align: center"></td>
+        <td th:text="${order.affectedTo}" style="text-align: center"></td>
 
 
 
 
-        <td style="text-align: center">
+        <!--<td style="text-align: center">
             <form th:action="@{'/updateOrderStatus/' + ${order.idCmd}}" method="post">
 
                 <select name="etat" class="form-control">
@@ -80,7 +126,7 @@
                 <button class="btn btn-success" type="submit">Valider Status</button>
             </form>
 
-        </td>
+        </td>-->
 
     </tr>
 
@@ -216,6 +262,8 @@
         $('#table_cmd').tableExport(exportConfig);
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 

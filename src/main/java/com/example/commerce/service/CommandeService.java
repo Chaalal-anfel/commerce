@@ -2,8 +2,10 @@ package com.example.commerce.service;
 
 import com.example.commerce.modele.Commande;
 import com.example.commerce.web.dto.CommandeRegistrationDto;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface  CommandeService {
 
@@ -29,5 +31,21 @@ public interface  CommandeService {
     void confirmOrder(Long orderId);
     void deleteOrder(Long orderId);
     long calculerNombreTotalCommandes();
+    long calculerNombreTotalCommandesConfirmes();
+
+
+
+    List<Commande> getCommandesByIdRange(Long firstId, Long lastId);
+
+    void updateAffectedTo(List<Long> idCmds, String newAffectedTo);
+
+    List<Commande> getCommandesForCurrentUser();
+
+    Map<String, Long> calculerStatistiquesParDelegue();
+    Map<String, Long> calculerStatistiquesParLastModifiedBy();
+
+    List<Object[]> countDistinctCommandsByDateAndRefLandPage();
+
 
 }
+

@@ -4,9 +4,14 @@ import com.example.commerce.modele.Commande;
 import com.example.commerce.repository.CommandeRepository;
 import com.example.commerce.web.dto.CommandeRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CommandeServiceImpl implements CommandeService{
@@ -33,6 +38,7 @@ public class CommandeServiceImpl implements CommandeService{
                 refLandP,
                 commandeRegistrationDto.getStatus(),
                 situation,
+                commandeRegistrationDto.getAffectedTo(),
                 commandeRegistrationDto.getLastModifyBy()
         );
         return commandeRepository.save(commande);
@@ -73,18 +79,8 @@ public class CommandeServiceImpl implements CommandeService{
 
 
 
-    /*
-    @Override
-    public Commande mettreAjourStatusCommande(Long id, String nouveauStatus) {
-        return commandeRepository.findById(id)
-                .map(c -> {
-                    c.setStatus(nouveauStatus);
-                    return commandeRepository.save(c);
-                })
-                .orElseThrow(() -> new RuntimeException("Commande non trouvée !"));
-    }
 
-*/
+
 
     @Override
     public Commande mettreAjourStatusCommande(Long id, String nouveauStatus, String username) {
@@ -140,8 +136,90 @@ public class CommandeServiceImpl implements CommandeService{
         return commandeRepository.count();
     }
 
+    @Override
+    public long calculerNombreTotalCommandesConfirmes() {
+        return commandeRepository.findByStatus("confirmé").size();
+    }
 
 
+    @Override
+    public List<Commande> getCommandesByIdRange(Long firstId, Long lastId) {
+        return commandeRepository.findCommandesByIdRange(firstId, lastId);
+    }
+
+    @Override
+    public void updateAffectedTo(List<Long> idCmds, String delegue) {
+        // Appeler la méthode du repository pour mettre à jour affectedTo
+        commandeRepository.updateAffectedToByIds(idCmds, delegue);
+    }
+
+    @Override
+    public List<Commande> getCommandesForCurrentUser() {
+        // Récupérer les informations sur l'utilisateur connecté depuis le contexte de sécurité
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        String status = "non traitée";
+        // Utiliser le nom d'utilisateur pour filtrer les commandes
+        return commandeRepository.findByAffectedTo(username);
+    }
+
+    /*
+    @Override
+    public Map<String, Long> calculerStatistiquesParDelegue() {
+        List<Object[]> results = commandeRepository.countCommandesByAffectedTo();
+        Map<String, Long> statistiques = new HashMap<>();
+        for (Object[] result : results) {
+            statistiques.put((String) result[0], (Long) result[1]);
+        }
+        return statistiques;
+    }
 
 
+    @Override
+    public Map<String, Long> calculerStatistiquesParDelegue() {
+        List<Commande> commandes = commandeRepository.findAll();
+        return commandes.stream()
+                .filter(commande -> commande.getAffectedTo() != null)
+                .collect(Collectors.groupingBy(Commande::getAffectedTo, Collectors.counting()));
+    }
+
+    @Override
+    public Map<String, Long> calculerStatistiquesParModifieur() {
+        List<Commande> commandes = commandeRepository.findAll();
+        Map<String, Long> statistiquesParModifieur = new HashMap<>();
+        for (Commande commande : commandes) {
+            String modifieur = (commande.getLastModifiedBy() != null) ? commande.getLastModifiedBy() : "0";
+            statistiquesParModifieur.put(modifieur, statistiquesParModifieur.getOrDefault(modifieur, 0L) + 1);
+        }
+        return statistiquesParModifieur;
+    }
+
+     */
+    @Override
+    public Map<String, Long> calculerStatistiquesParDelegue() {
+        List<Object[]> result = commandeRepository.countOrdersByAffectedTo();
+        return convertResultToMap(result);
+    }
+
+    @Override
+    public Map<String, Long> calculerStatistiquesParLastModifiedBy() {
+        List<Object[]> result = commandeRepository.countOrdersByLastModifiedBy();
+        return convertResultToMap(result);
+    }
+
+    // Méthode pour convertir le résultat en une map
+    private Map<String, Long> convertResultToMap(List<Object[]> result) {
+        Map<String, Long> statistics = new HashMap<>();
+        for (Object[] row : result) {
+            String key = (String) row[0];
+            Long value = (Long) row[1];
+            statistics.put(key, value);
+        }
+        return statistics;
+    }
+
+    @Override
+    public List<Object[]> countDistinctCommandsByDateAndRefLandPage() {
+        return commandeRepository.countDistinctCommandsByDateAndRefLandPage();
+    }
 }

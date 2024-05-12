@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des commandes</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .scrollable-table {
+            max-height: 300px; /* ou toute autre hauteur que vous souhaitez */
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<h1 class="mt-3">Liste des commandes</h1>
+<div class="scrollable-table">
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+        <tr>
+            <th style="position: sticky; top: 0; z-index: 1;">ID</th>
+            <th style="position: sticky; top: 0; z-index: 1;">nom</th>
+            <th style="position: sticky; top: 0; z-index: 1;">wilaya</th>
+            <th style="position: sticky; top: 0; z-index: 1;">commune</th>
+            <th style="position: sticky; top: 0; z-index: 1;">numero</th>
+            <th style="position: sticky; top: 0; z-index: 1;">delege</th>
+            <th style="position: sticky; top: 0; z-index: 1;">Status</th>
+            <th style="position: sticky; top: 0; z-index: 1;">par</th>
+            <th style="position: sticky; top: 0; z-index: 1;">Date</th>
+            <th style="position: sticky; top: 0; z-index: 1;">action</th>
+            <!-- Ajoutez d'autres en-têtes si nécessaire -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Utilisation de Thymeleaf pour itérer sur la liste de commandes -->
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.idCmd}"></td>
+            <td th:text="${order.name}"></td>
+            <td th:text="${order.wilaya}"></td>
+            <td th:text="${order.commune}"></td>
+            <td th:text="${order.numero}"></td>
+            <td th:text="${order.affectedTo}"></td>
+            <td th:text="${order.status}"></td>
+            <td th:text="${order.lastModifiedBy}"></td>
+            <td th:text="${#dates.format(order.dateCommande, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td style="text-align: center">
+                <form th:action="@{'/updateOrderStatus/' + ${order.idCmd}}" method="post">
+
+                    <select name="etat" class="form-control">
+                        <option value="" th:selected="${order.status == null}">.......</option>
+
+                        <option th:each="etat : ${etatList}" th:value="${etat}" th:text="${etat}" th:selected="${etat == order.status}"></option>
+                    </select>
+                    <button class="btn btn-success" type="submit">Valider Status</button>
+                </form>
+
+            </td>            <!-- Ajoutez d'autres colonnes si nécessaire -->
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- Include Bootstrap JS (optional) -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
